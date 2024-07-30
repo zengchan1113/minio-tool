@@ -1,0 +1,6 @@
+com/tencent/bk/base/dataflow/jobnavi/models/CodeEnum.class
+com/tencent/bk/base/dataflow/jobnavi/common/Result.class
+com/tencent/bk/base/dataflow/jobnavi/controller/MinioController.class
+com/tencent/bk/base/dataflow/jobnavi/config/Knife4jConfiguration.class
+com/tencent/bk/base/dataflow/jobnavi/Application.class
+com/tencent/bk/base/dataflow/jobnavi/common/MinioRequest.class
