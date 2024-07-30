@@ -1,4 +1,4 @@
-FROM registry.paas/ops/python:3.7
+FROM python:3.7
 
 # java 8安装
 RUN mkdir -p /usr/lib/jdk8

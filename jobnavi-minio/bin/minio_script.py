@@ -180,12 +180,14 @@ class MINIO:
 def env_main():
     env = Env()
     # minio登录IP地址和账号密码
-    minio_address = env.str("minio_address", "10.253.199.238:9000")
-    minio_admin = env.str("minio_admin", "minioadmin")
-    minio_password = env.str("minio_password", "Pass@op1s@op1s")
-    minio_bucket = env.str("minio_bucket", 'jobnavi310')
+    minio_address = env.str("minio_address", "{ip:port}")
+    minio_admin = env.str("minio_admin", "{user}")
+    minio_password = env.str("minio_password", "{password}")
+    minio_bucket = env.str("minio_bucket", '{bucket_name}')
+    # 以下两个路径对应minio上的路径，可根据实际情况进行修改
     minio_adaptor_storage_path = 'data/bkee/bkdata/jobnavirunner/adaptor/' + env.str("adaptor_task", "batch_sql")
     minio_env_storage_path = 'data/bkee/bkdata/jobnavirunner/env/' + env.str("env_task", "")
+    # 下载至本地的路径
     minio_download_path = env.str("minio_download_path", '/Users/chenzeng/batch_sql/')
     minio_gen = MINIO(minio_address=minio_address,
                       minio_admin=minio_admin,
@@ -216,5 +218,6 @@ def shell_main():
 
 
 if __name__ == "__main__":
+    ## 提供环境变量和shell两种模式
     #     env_main()
     shell_main()

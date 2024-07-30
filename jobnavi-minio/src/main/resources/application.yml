@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: jobnavi-minio
+
+server:
+  port: 8002
+
+knife4j:
+  cors: true
+  enable: true
+  production: false
+  basic:
+    enable: true
+    username: admin
+    password: knife4j@0P$4A

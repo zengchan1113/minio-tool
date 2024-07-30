@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bkbase-minio-tool
+  labels:
+    app: bkbase-minio-tool
+  namespace: bkbase
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bkbase-minio-tool
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+    type: RollingUpdate  
+  template:
+    metadata:
+      labels:
+        app: bkbase-minio-tool
+    spec:  
+      containers:
+      # minio拉取工具
+      - name: bkbase-minio-tool
+        image: {image}
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: ops-dw-minio-adaptor
+          mountPath: /data/bkee/bkdata/minio/adaptor
+        - name: ops-dw-minio-env
+          mountPath: /data/bkee/bkdata/minio/env
+        ports:
+        - containerPort: 8002
+          protocol: TCP
+
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 3600
+      volumes:
+      - name: ops-dw-minio-adaptor
+        hostPath:
+          path: /apps/log/bc-ops/guard/dw-jobnavi-runner/bkdata/minio/adaptor
+      - name: ops-dw-minio-env
+        hostPath:
+          path: /apps/log/bc-ops/guard/dw-jobnavi-runner/bkdata/minio/env
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bkbase-minio-tool
+  namespace: bkbase
+  labels:
+    app: bkbase-minio-tool
+spec:
+  ports:
+    - port: 8002
+      targetPort: 8002
+      nodePort: 30082
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: bkbase-minio-tool       
